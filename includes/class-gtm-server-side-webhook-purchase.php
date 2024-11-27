@@ -25,17 +25,16 @@ class GTM_Server_Side_Webhook_Purchase {
 			return;
 		}
 
-		add_action( 'woocommerce_new_order', array( $this, 'woocommerce_new_order' ), 10, 2 );
+		add_action( 'woocommerce_checkout_order_created', array( $this, 'woocommerce_new_order' ), 10, 1 );
 	}
 
 	/**
 	 * New order create.
 	 *
-	 * @param  int      $order_id Order id.
 	 * @param  WC_Order $order Order id.
 	 * @return void
 	 */
-	public function woocommerce_new_order( $order_id, $order ) {
+	public function woocommerce_new_order( $order ) {
 		if ( ! GTM_Server_Side_Helpers::is_enable_webhook() ) {
 			return;
 		}
